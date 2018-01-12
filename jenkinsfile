@@ -1,1 +1,45 @@
 
+pipeline {
+    #agent {
+    #    label 'docker'
+    #}
+    
+    environment {
+        emailDefaultSubject =  " ${env.JOB_NAME} - #${env.BUILD_NUMBER} - "
+        labelName = "label-test"
+    }
+    
+    options {
+        disableConcurrentBuilds()
+        skipStagesAfterUnstable()        
+    }
+    
+    parameters {
+        string(name:'repository', defaultValue: '', description: 'Git Repository')        
+    }
+    
+    stages {        
+        stage('Checkout') {            
+            steps {                                    
+
+                sh "echo DEV"
+                
+                script {
+                    manager.buildSuccess()
+                    
+                    writeFile file: 'checkout.output', text: "${labelName}"
+                    stash includes: 'checkout.output', name: 'checkout.output'
+                    env.tfslabel = readFile 'checkout.output'
+                    currentBuild.description = "TFS Label : ${env.tfslabel}"
+                    }
+            }
+            post {
+            success {
+                   }
+            }
+            failure {                    
+            
+            }
+           }
+        }      
+}
