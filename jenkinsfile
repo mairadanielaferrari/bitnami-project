@@ -3,7 +3,7 @@ pipeline {
         label 'docker'
     }
     environment {
-        test = "test"
+        repository = "${env.repository}"
     }
     
     options {
@@ -12,13 +12,13 @@ pipeline {
     }
     
     parameters {
-        string(name:'repository', defaultValue: '${repository}', description: 'Git Repository')        
+        string(name:'repositoryyyy', defaultValue: '${repository}', description: 'Git Repository')        
     }
     
     stages {        
         stage('Checkout') {            
             steps {          
-                git '${env.repository}'
+                git '${repository}'
                 echo "step 1"
             }
             post {
