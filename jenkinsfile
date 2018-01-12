@@ -19,6 +19,7 @@ pipeline {
     stages {        
         stage('Checkout') {            
             steps {
+               git '${repository}'
                script {
                     env.version = input id: 'Version', message: 'Which Version Do you want to Build', ok: 'Build',
                                       parameters: [ [$class: 'GitParameterDefinition',
@@ -36,7 +37,7 @@ pipeline {
                                                   ]
                }
         
-                git '${repository}'
+                
                 echo "step 1"                
             }
             post {
