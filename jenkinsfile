@@ -5,8 +5,7 @@ pipeline {
     #}
     
     environment {
-        emailDefaultSubject =  " ${env.JOB_NAME} - #${env.BUILD_NUMBER} - "
-        labelName = "label-test"
+        test = "test"
     }
     
     options {
@@ -21,17 +20,7 @@ pipeline {
     stages {        
         stage('Checkout') {            
             steps {                                    
-
-                sh "echo DEV"
-                
-                script {
-                    manager.buildSuccess()
-                    
-                    writeFile file: 'checkout.output', text: "${labelName}"
-                    stash includes: 'checkout.output', name: 'checkout.output'
-                    env.tfslabel = readFile 'checkout.output'
-                    currentBuild.description = "TFS Label : ${env.tfslabel}"
-                    }
+            
             }
             post {
             success {
