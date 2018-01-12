@@ -1,4 +1,3 @@
-
 pipeline {
     environment {
         test = "test"
@@ -16,15 +15,16 @@ pipeline {
     stages {        
         stage('Checkout') {            
             steps {                                    
-            
+                echo "step 1"
             }
             post {
             success {
+                echo "success"
                    }            
             failure {                    
-            
+                echo "failure"
             }
            }
         }      
 }
-}
+    }
