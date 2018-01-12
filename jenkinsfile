@@ -4,22 +4,20 @@ pipeline {
         label 'docker'
     }
     environment {
-        test = "test"
+        repository = "${env.repository}"
     }
     
     options {
         disableConcurrentBuilds()
         skipStagesAfterUnstable()        
     }
-    
-    parameters {
-        string(name:'repository', defaultValue: '${env.repository}', description: 'Git Repository')                    
-    }
+        
     
     stages {        
         stage('Checkout') {            
             steps {
-               git '${repository}'
+               echo "${repository}"
+               git "${repository}"
                script {
                     env.version = input id: 'Version', message: 'Which Version Do you want to Build', ok: 'Build',
                                       parameters: [ [$class: 'GitParameterDefinition',
