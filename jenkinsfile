@@ -15,12 +15,11 @@ pipeline {
     stages {        
         stage('Checkout') {            
             steps {
-               echo "${repository}"
-               git "${repository}"
+               echo "${repository}"               
                script {
                     env.version = input id: 'Version', message: 'Which Version Do you want to Build', ok: 'Build',
                                       parameters: [ [$class: 'GitParameterDefinition',
-                                                     branch: '',
+                                                     branch: 'master',
                                                      branchFilter: '.*',
                                                      defaultValue: '',
                                                      description: 'Please Select Version',
