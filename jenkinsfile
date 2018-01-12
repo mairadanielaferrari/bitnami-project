@@ -28,8 +28,8 @@ pipeline {
                                                      selectedValue: 'NONE',
                                                      sortMode: 'NONE',
                                                      tagFilter: '*',
-                                                     type: 'PT_TAG',
-                                                     useRepository: 'https://github.com/bitnami/bitnami-docker-node.git'
+                                                     type: 'PT_BRANCH_TAG',
+                                                     useRepository: '${repository}'
                                                      ]
                                                   ]
                }
