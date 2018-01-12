@@ -18,7 +18,7 @@ pipeline {
     stages {        
         stage('Checkout') {            
             steps {          
-                git '${params.repository}'
+                git '${env.repository}'
                 echo "step 1"
             }
             post {
