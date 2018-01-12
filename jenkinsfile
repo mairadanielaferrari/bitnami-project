@@ -20,8 +20,20 @@ pipeline {
         stage('Checkout') {            
             steps {
                script {
-                    env.version = input id: 'dev_review_step', message: 'Developer\'s Review ok?', ok: 'Team Lead Approval Request',
-                                      parameters: [ [$class: 'GitParameterDefinition', branch: '', branchFilter: '.*', defaultValue: '', description: 'description', name: 'BRANCH_PARAM',quickFilterEnabled: false,  selectedValue: 'NONE', sortMode: 'NONE',tagFilter: '*', type: 'PT_BRANCH']]"
+                    env.version = input id: 'Version', message: 'Which Version Do you want to Build', ok: 'Build',
+                                      parameters: [ [$class: 'GitParameterDefinition',
+                                                     branch: '',
+                                                     branchFilter: '.*',
+                                                     defaultValue: '',
+                                                     description: 'Please Select Version',
+                                                     name: 'Version',
+                                                     quickFilterEnabled: false,
+                                                     selectedValue: 'NONE',
+                                                     sortMode: 'NONE',
+                                                     tagFilter: '*',
+                                                     type: 'Tag'
+                                                     ]
+                                                  ]
                }
         
                 git '${repository}'
