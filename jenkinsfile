@@ -1,9 +1,5 @@
 
 pipeline {
-    #agent {
-    #    label 'docker'
-    #}
-    
     environment {
         test = "test"
     }
