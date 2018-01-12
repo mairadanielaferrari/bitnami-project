@@ -1,9 +1,10 @@
 pipeline {
+    
     agent {
         label 'docker'
     }
     environment {
-        repository = "${env.repository}"
+        test = "test"
     }
     
     options {
@@ -12,14 +13,20 @@ pipeline {
     }
     
     parameters {
-        string(name:'repositoryyyy', defaultValue: '${repository}', description: 'Git Repository')        
+        string(name:'repository', defaultValue: '${env.repository}', description: 'Git Repository')                
+    ]),
     }
     
     stages {        
         stage('Checkout') {            
-            steps {          
+            steps {
+               script {
+                    env.version = input id: 'dev_review_step', message: 'Developer\'s Review ok?', ok: 'Team Lead Approval Request',
+                                      parameters: [ [$class: 'GitParameterDefinition', branch: '', branchFilter: '.*', defaultValue: '', description: 'description', name: 'BRANCH_PARAM',quickFilterEnabled: false,  selectedValue: 'NONE', sortMode: 'NONE',tagFilter: '*', type: 'PT_BRANCH']]"
+               }
+        
                 git '${repository}'
-                echo "step 1"
+                echo "step 1"                
             }
             post {
             success {
