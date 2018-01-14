@@ -1,5 +1,6 @@
-properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
+properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: 'latest', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
 def GIT_URL = 'UNKNOWN'
+def REFS = 'UNKNOWN'
 
 pipeline {
     agent {label 'docker-slave'}
@@ -14,10 +15,15 @@ pipeline {
                 script {            
                 GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
                 sh "echo ${GIT_URL}"
+                if [ "${params.Version}" == "latest" ]: then
+                  REFS = 'refs/heads/master'
+                else
+                  REFS = "refs/tags/${params.Version}"
+                fi  
                 }
                 
-                echo  "Retriving Version: ${params.Version} from ${GIT_URL}"
-                checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                
+                echo  "Retriving Version: ${REFS} from ${GIT_URL}"
+                checkout([$class: 'GitSCM', branches: [[name: "${REFS}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                
         }
         }
         
