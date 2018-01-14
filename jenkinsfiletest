@@ -10,6 +10,8 @@ pipeline {
             steps {                
                 echo 'Building.. yeah!' 
                 sh 'docker-compose up -d'
+                sh 'docker-compose ps'
+                sh 'docker-compose down'                
       
             }
         }
