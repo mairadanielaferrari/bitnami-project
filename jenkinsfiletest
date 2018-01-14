@@ -12,10 +12,10 @@ pipeline {
             steps {
                 script {            
                 def scmUrl = scm.getUserRemoteConfigs()[0].getUrl()
-                sh "@echo ${scmUrl}"
+                sh "echo ${scmUrl}"
                 }
                 
-                echo  "Retriving Version: ${params.Version} from ${env.GIT_URL}"
+                echo  "Retriving Version: ${params.Version} from ${env.scmUrl}"
                 checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${env.GIT_URL}"]]])
                 echo 'Bringing Application Up. This is the first step!'
                 sh 'docker-compose up -d'
