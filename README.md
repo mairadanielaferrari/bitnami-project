@@ -21,9 +21,9 @@ solution is running properly would be ok.
 and to release them as soon as possible. Configure Jenkins slaves that are able to run
 Docker for testing the applications in parallel.
 
-## Getting Started
+## Getting Started - Item (1)
 
-In order to accomplish point 1. A Jenkins instance was installed under the following URL:
+In order to accomplish point 1. A Jenkins instance was installed on an EC2 Instance under the following URL:
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080
 
@@ -35,6 +35,18 @@ Installed Version: CloudBees Jenkins Enterprise 2.89.1.7-rolling. I have install
 
 In order to discover Bitnami containerized applications, I installed the GitHub Organization Folder plugin which requires a jenkinsfile (declarative pipeline) commited on each Github repository. As I do not have permissions to commit this file to Bitnami repositories, I installed the Cloudbees Jenkins Enterprise version that allows me to specify an unique jenkinsfile, hosted on a remote repository, that will used among all the discovered repositories.
 
+During installation, I installed default recommended plugins plus some specific ones needed to resolve the project assignment. Installed plugins can be found under the following URL.
+
+http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/pluginManager/installed
+
+Under Linux, I performed the following additional installations:
+
+- Docker
+- Git
+- Docker Compose
+- Java 8
+
+## Configuration - Item (2)
 
 
 
