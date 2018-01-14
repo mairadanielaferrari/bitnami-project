@@ -1,4 +1,4 @@
-properties([[$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/bitnami/bitnami-docker-node/'], parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG', useRepository: 'https://github.com/bitnami/bitnami-*']]), pipelineTriggers([])])
+properties([[$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/bitnami/bitnami-docker-node/'], parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: '', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG', useRepository: 'https://github.com/bitnami/bitnami-*']]), pipelineTriggers([])])
 
 pipeline {
     agent any
