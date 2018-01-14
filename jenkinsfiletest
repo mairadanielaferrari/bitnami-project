@@ -9,7 +9,13 @@ pipeline {
     
     stages {
         stage('Validate App') {
-            steps {                
+            steps {
+                script {
+                sh 'env > env.txt' 
+                    for (String i : readFile('env.txt').split("\r?\n")) {
+                    println i
+                }
+                }
                 echo  "Retriving Version: ${params.Version} from ${env.GIT_URL}"
                 checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${env.GIT_URL}"]]])
                 echo 'Bringing Application Up. This is the first step!'
