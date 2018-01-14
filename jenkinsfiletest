@@ -10,11 +10,7 @@ pipeline {
     stages {
         stage('Validate App') {
             steps {
-                script {
-                sh 'env > env.txt' 
-                    for (String i : readFile('env.txt').split("\r?\n")) {
-                    println i
-                }
+                script {            
                 def scmUrl = scm.getUserRemoteConfigs()[0].getUrl()
                 sh "@echo ${scmUrl}"
                 }
