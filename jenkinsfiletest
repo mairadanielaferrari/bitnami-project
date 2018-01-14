@@ -1,3 +1,4 @@
+checkout scm
 properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
 
 pipeline {
