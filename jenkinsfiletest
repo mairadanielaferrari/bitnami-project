@@ -44,7 +44,6 @@ pipeline {
                         label "windows-testing"
                     }
                     steps {
-                   //    checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                
                        sh 'docker-compose up -d'                
                        sh 'echo "Executing script to start Testing in Windows"'
                     }
@@ -59,7 +58,6 @@ pipeline {
                         label "linux-testing"
                     }
                     steps {
-                       checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                                       
                        sh 'docker-compose up -d'                
                        sh 'echo "Executing script to start Testing in Linux"'
                      }
