@@ -48,9 +48,24 @@ Under Linux, I installed the following tools:
 
 ## Configuration - Item (2)
 
-In order to obtain periodically the list of containerized applications and automatically create a job per each master branch, I installed the GitHub Organization Plugin, which allows Jenkins to discover repositories / branches based on regular expressions.
+In order to obtain periodically the list of containerized applications and automatically create a job per each Repository master branch, I installed the GitHub Organization Plugin, which allows Jenkins to discover repositories / branches based on regular expressions.
 
 In order to create a parameter selector with the different version options (releases) that the application supports, I have installed the Git Parameter Plugin which allows us to assign git tag or revision number as parameter in Parametrized builds.
+
+Jobs can be found under:
+
+http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/job/Bitnami/
+
+If you want to see the way I configured the GitHub Organization Folder Plugin, you can go to 
+
+http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/job/Bitnami/configure
+
+Configuration Parameters Overview:
+
+Repository Regular Expression: bitnami-docker*
+Branch Regular Expression : master
+Marker File (File that needs to be present in the repository in order to be consider a buildable repository): docker-compose.yml
+Declarative Pipeline Script: Points to a jenkinsfile commited onder this repository . https://github.com/mairadanielaferrari/bitnami-project.git. Name: jenkinsfile
 
 
 ### Prerequisites
