@@ -1,12 +1,8 @@
 # Bitnami Project - Jenkins Pipeline
 
-One Paragraph of project description goes here
+The intention of this README is to explain the architecture implemented to resolve the following assignment:
 
-## Getting Started
-
-The intention of this README is to explain the architecture used to define the following assignment:
-
-Deploy a Jenkins instance and install any plugin that may be needed to address the next
+1. Deploy a Jenkins instance and install any plugin that may be needed to address the next
 bullet points.
 
 2. Obtain periodically the list of containerized applications (The list of applications we
@@ -24,6 +20,14 @@ solution is running properly would be ok.
 4. (Optional) In Bitnami we have hundreds of apps so we need to run everything in parallel
 and to release them as soon as possible. Configure Jenkins slaves that are able to run
 Docker for testing the applications in parallel.
+
+## Getting Started
+
+In order to met point 1. A Jenkins instance was installed under the following URL: http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080
+
+Login Details:
+  - user     : admin
+  - password : bitnamiadmin
 
 ### Prerequisites
 
