@@ -9,16 +9,19 @@ pipeline {
     }
     
     stages {
-        stage('Validate App') {
-            steps {
+        stage('Checkout') {
+         steps {
                 script {            
                 GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
                 sh "echo ${GIT_URL}"
                 }
                 
                 echo  "Retriving Version: ${params.Version} from ${GIT_URL}"
-                checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])
-                echo 'Bringing Application Up. This is the first step!'
+                checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                
+        }
+        
+        stage('Validate App') {
+           echo 'Bringing Application Up. This is the first step!'
                 sh 'docker-compose up -d'
                 
                 echo 'Validating App is Up!' 
