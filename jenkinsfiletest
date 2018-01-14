@@ -50,11 +50,11 @@ pipeline {
                     }
                     steps {
                        echo  "Retriving Version: ${REFS} from ${GIT_URL}"           
-                       sh 'echo "Executing script to start Testing in Windows"'
+                       echo "Executing script to start Testing in Windows"
                     }
                     post {
                         always {
-                             sh 'echo "Save Windows Testing Result"'
+                             echo "Save Windows Testing Result"
                         }
                     }
                 }
@@ -64,11 +64,11 @@ pipeline {
                     }
                     steps {
                        echo  "Retriving Version: ${REFS} from ${GIT_URL}"
-                       sh 'echo "Executing script to start Testing in Linux"'
+                       echo "Executing script to start Testing in Linux"
                      }
                     post {
                         always {
-                             sh 'echo "Save Linux Testing Result"'
+                             echo "Save Linux Testing Result"
                         }
                     }
                 }
