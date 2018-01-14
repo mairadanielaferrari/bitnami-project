@@ -2,12 +2,17 @@ properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFil
 
 pipeline {
     agent {label 'docker-slave'}
+    options {
+        skipDefaultCheckout()
+        skipStagesAfterUnstable()
+    }
     
     stages {
         stage('Validate App') {
             steps {                
+                echo  "Retriving Version: ${params.Version} from ${env.GIT_URL}"
+                checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${env.GIT_URL}"]]])
                 echo 'Bringing Application Up. This is the first step!'
-                echo  "${params.Version}"
                 sh 'docker-compose up -d'
                 
                 echo 'Validating App is Up!' 
