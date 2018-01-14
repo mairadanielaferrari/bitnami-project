@@ -60,12 +60,16 @@ If you want to see the way I configured the GitHub Organization Folder Plugin, y
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/job/Bitnami/configure
 
-Configuration Parameters Overview:
+### Configuration Parameters Overview:
 
-Repository Regular Expression: bitnami-docker*
-Branch Regular Expression : master
-Marker File (File that needs to be present in the repository in order to be consider a buildable repository): docker-compose.yml
-Declarative Pipeline Script: Points to a jenkinsfile commited onder this repository . https://github.com/mairadanielaferrari/bitnami-project.git. Name: jenkinsfile
+- Repository Regular Expression: bitnami-docker*
+
+- Branch Regular Expression : master
+
+- Marker File (File that needs to be present in the repository in order to be consider a buildable repository): docker-compose.yml
+
+- Declarative Pipeline Script: Points to a jenkinsfile commited onder this repository . https://github.com/mairadanielaferrari/bitnami-
+project.git. Name: jenkinsfile
 
 
 ### Prerequisites
