@@ -1,4 +1,5 @@
 properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
+def GIT_URL = 'UNKNOWN'
 
 pipeline {
     agent {label 'docker-slave'}
@@ -6,19 +7,16 @@ pipeline {
         skipDefaultCheckout()
         skipStagesAfterUnstable()
     }
-    environment {
-        GIT_URL = ""
-    }
     
     stages {
         stage('Validate App') {
             steps {
                 script {            
-                env.GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
-                sh "echo ${env.GIT_URL}"
+                GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
+                sh "echo ${GIT_URL}"
                 }
                 
-                echo  "Retriving Version: ${params.Version} from ${env.scmUrl}"
+                echo  "Retriving Version: ${params.Version} from ${GIT_URL}"
                 checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${env.GIT_URL}"]]])
                 echo 'Bringing Application Up. This is the first step!'
                 sh 'docker-compose up -d'
