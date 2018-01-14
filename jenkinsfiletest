@@ -7,7 +7,7 @@ pipeline {
         stage('Validate App') {
             steps {                
                 echo 'Bringing Application Up. This is the first step!'
-                echo  '${params.Version}'
+                echo  "${params.Version}"
                 sh 'docker-compose up -d'
                 
                 echo 'Validating App is Up!' 
