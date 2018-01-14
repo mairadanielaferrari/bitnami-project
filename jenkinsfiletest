@@ -9,6 +9,7 @@ pipeline {
                 echo 'Building.. yeah!' 
                 sh 'docker-compose up -d'
                 sh 'docker-compose ps'
+                sh 'docker-compose --config services'
                 sh 'docker-compose down'                
       
             }
