@@ -1,4 +1,4 @@
-properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: '', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG']]), pipelineTriggers([])])
+properties([[$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/bitnami/bitnami-docker-node.git/'], parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: '', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_TAG', useRepository: 'https://github.com/bitnami/bitnami-docker-node.git']]), pipelineTriggers([[$class: 'PeriodicFolderTrigger', interval: '1d']])])
 
 pipeline {
     agent any
