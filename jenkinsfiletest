@@ -1,18 +1,4 @@
-properties([
-    parameters([[$class: 'GitParameterDefinition',
-                                                     branch: 'master',
-                                                     branchFilter: '.*',
-                                                     defaultValue: '',
-                                                     description: 'Please Select Version',
-                                                     name: 'Version',
-                                                     quickFilterEnabled: false,
-                                                     selectedValue: 'NONE',
-                                                     sortMode: 'NONE',
-                                                     tagFilter: '*',
-                                                     type: 'PT_BRANCH_TAG'
-                                                     ]
-    ])
-])
+properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: '.*', defaultValue: '', description: '', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_BRANCH_TAG']]), pipelineTriggers([])])
 
 pipeline {
     agent any
