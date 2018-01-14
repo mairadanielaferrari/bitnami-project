@@ -14,7 +14,7 @@ pipeline {
         stage('Validate App') {
             steps {
                 script {            
-                GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
+                env.GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
                 sh "echo ${env.GIT_URL}"
                 }
                 
