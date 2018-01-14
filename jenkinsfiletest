@@ -54,7 +54,7 @@ pipeline {
                     }
                     post {
                         always {
-                            sh 'docker-compose down'                
+                             sh 'echo "Save Windows Testing Result"'
                         }
                     }
                 }
@@ -68,7 +68,7 @@ pipeline {
                      }
                     post {
                         always {
-                            sh 'docker-compose down'                
+                             sh 'echo "Save Linux Testing Result"'
                         }
                     }
                 }
