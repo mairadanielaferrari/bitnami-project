@@ -2,13 +2,15 @@ properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFil
 
 pipeline {
     agent { label 'test' }
-    options { skipDefaultCheckout() }
-    
+     environment {
+        COMPOSE_FILE = 'docker-compose.yml'
+   }
     stages {
         stage('Build') {
-            steps {
-
-                echo 'Building.. yeah!'
+            steps {                
+                echo 'Building.. yeah!' 
+                sh 'docker-compose up'
+      
             }
         }
         stage('Test') {
