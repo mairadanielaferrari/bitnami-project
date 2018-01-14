@@ -15,7 +15,10 @@ pipeline {
                     for (String i : readFile('env.txt').split("\r?\n")) {
                     println i
                 }
+                def scmUrl = scm.getUserRemoteConfigs()[0].getUrl()
+                sh "@echo #{scmUrl}"
                 }
+                
                 echo  "Retriving Version: ${params.Version} from ${env.GIT_URL}"
                 checkout([$class: 'GitSCM', branches: [[name: "refs/tags/${params.Version}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${env.GIT_URL}"]]])
                 echo 'Bringing Application Up. This is the first step!'
