@@ -2,10 +2,14 @@ properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFil
 
 pipeline {
     agent { label 'test' }
-
+    options { skipDefaultCheckout() }
+    
     stages {
         stage('Build') {
             steps {
+            checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false
+
+
                 echo 'Building.. yeah!'
             }
         }
