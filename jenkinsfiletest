@@ -15,11 +15,10 @@ pipeline {
                 script {            
                 GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
                 sh "echo ${GIT_URL}"
-                if [ "${params.Version}" == "latest" ]: then
+                if ("${params.Version}" == "latest")
                   REFS = 'refs/heads/master'
                 else
-                  REFS = "refs/tags/${params.Version}"
-                fi  
+                  REFS = "refs/tags/${params.Version}"               
                 }
                 
                 echo  "Retriving Version: ${REFS} from ${GIT_URL}"
