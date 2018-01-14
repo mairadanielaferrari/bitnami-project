@@ -4,10 +4,12 @@ pipeline {
     agent {label 'test'}
     
     stages {
-        stage('Build') {
+        stage('Validate App') {
             steps {                
-                echo 'Building.. yeah!' 
+                echo 'Bringing Application Up.!' 
                 sh 'docker-compose up -d'
+                
+                echo 'Validating App is Up!' 
                 sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
                     if [ "\$code" != "0" ]; 
                         then exit -1 
@@ -16,15 +18,15 @@ pipeline {
                     """     
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+        
+        stage('Run Tests') {
+            parallel {
+                def s = "a,b,c,d"
+                def tests = s.split(',')
+                for (int i = 0; i < tests.length; i++) {
+                stage("Test ${testd[i]}") {
+                  echo "${testd[i]}"
+            }                
         }
     }
     post { 
