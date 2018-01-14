@@ -23,7 +23,7 @@ Docker for testing the applications in parallel.
 
 ## Getting Started - Item (1)
 
-In order to accomplish point 1. A Jenkins instance was installed on an EC2 Instance under the following URL:
+In order to accomplish item 1. A Jenkins instance was installed on an EC2 Instance under the following URL:
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080
 
@@ -39,7 +39,7 @@ During installation, I installed default recommended plugins plus some specific 
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/pluginManager/installed
 
-Under Linux, I performed the following additional installations:
+Under Linux, I installed the following tools:
 
 - Docker
 - Git
@@ -48,6 +48,9 @@ Under Linux, I performed the following additional installations:
 
 ## Configuration - Item (2)
 
+In order to obtain periodically the list of containerized applications and automatically create a job per each master branch, I installed the GitHub Organization Plugin, which allows Jenkins to discover repositories / branches based on regular expressions.
+
+In order to create a parameter selector with the different version options (releases) that the application supports, I have installed the Git Parameter Plugin which allows us to assign git tag or revision number as parameter in Parametrized builds.
 
 
 ### Prerequisites
