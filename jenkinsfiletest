@@ -1,12 +1,12 @@
 properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
 
 pipeline {
-    agent {label 'test'}
+    agent {label 'docker-slave'}
     
     stages {
         stage('Validate App') {
             steps {                
-                echo 'Bringing Application Up.!' 
+                echo 'Bringing Application Up. This is the first step!' 
                 sh 'docker-compose up -d'
                 
                 echo 'Validating App is Up!' 
@@ -19,15 +19,37 @@ pipeline {
             }
         }
         
-        stage('Run Tests') {
+        stage('Run Platform Specific Tests') {
+            failFast true
             parallel {
-             script{
-                def s = "a,b,c,d"
-                def tests = s.split(',')
-                for (int i = 0; i < tests.length; i++) {
-                stage("Test ${testd[i]}") {
-                  echo "${testd[i]}"
-            }
+                stage('Windows Testing') {
+                    agent {
+                        label "windows-testing"
+                    }
+                    steps {
+                       sh 'docker-compose up -d'                
+                       sh 'echo "Executing script to start Testing in Windows"'
+                    }
+                    post {
+                        always {
+                            sh 'docker-compose down'                
+                        }
+                    }
+                }
+                stage('Linux Testing') {
+                    agent {
+                        label "linux-testing"
+                    }
+                    steps {
+                       sh 'docker-compose up -d'                
+                       sh 'echo "Executing script to start Testing in Linux"'
+                     }
+                    post {
+                        always {
+                            sh 'docker-compose down'                
+                        }
+                    }
+                }
             }
         }
     }
