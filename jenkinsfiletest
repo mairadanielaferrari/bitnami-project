@@ -1,5 +1,9 @@
 properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: '', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
 
+void whateverFunction() {
+    sh 'ls /'
+}
+
 pipeline {
     agent { label 'test' }
     
@@ -12,8 +16,12 @@ pipeline {
                 sh 'echo $(docker-compose ps | grep $1 | awk \'{print $1}\')'
                 sh 'echo $(docker-compose ps -q | tr -d \'[:space:]\' | xargs docker inspect -f \'{{ .State.ExitCode }}\' | grep -v 0 | wc -l | tr -d \'[:space:]\')'
                 
-                sh 'docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do if [ "$code" == "1" ]; then exit -1 fi done'
-      
+                sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
+                    if [ "$code" != "0" ]; 
+                        then exit -1 
+                    fi 
+                    done
+                    """     
             }
         }
         stage('Test') {
