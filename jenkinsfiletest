@@ -16,7 +16,7 @@ pipeline {
                     println i
                 }
                 def scmUrl = scm.getUserRemoteConfigs()[0].getUrl()
-                sh "@echo #{scmUrl}"
+                sh "@echo ${scmUrl}"
                 }
                 
                 echo  "Retriving Version: ${params.Version} from ${env.GIT_URL}"
