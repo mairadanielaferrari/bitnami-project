@@ -7,12 +7,12 @@ pipeline {
         stage('Build') {
             steps {                
                 echo 'Building.. yeah!' 
-                sh 'sudo docker-compose up -d'
-                sh 'sudo docker-compose ps'
-                sh '$(sudo docker-compose ps | grep $1 | awk \'{print $1}\')'
-                sh 'echo $(sudo docker-compose ps -q | tr -d \'[:space:]\' | xargs docker inspect -f \'{{ .State.ExitCode }}\' | grep -v 0 | wc -l | tr -d \'[:space:]\')'
+                sh 'docker-compose up -d'
+                sh 'docker-compose ps'
+                sh '$(docker-compose ps | grep $1 | awk \'{print $1}\')'
+                sh 'echo $(docker-compose ps -q | tr -d \'[:space:]\' | xargs docker inspect -f \'{{ .State.ExitCode }}\' | grep -v 0 | wc -l | tr -d \'[:space:]\')'
                 
-                sh """sudo docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
+                sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
                     if [ "\$code" != "0" ]; 
                         then exit -1 
                     fi 
