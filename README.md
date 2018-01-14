@@ -23,11 +23,20 @@ Docker for testing the applications in parallel.
 
 ## Getting Started
 
-In order to met point 1. A Jenkins instance was installed under the following URL: http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080
+In order to accomplish point 1. A Jenkins instance was installed under the following URL:
+
+http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080
 
 Login Details:
   - user     : admin
   - password : bitnamiadmin
+
+Installed Version: CloudBees Jenkins Enterprise 2.89.1.7-rolling. I have installed a 14-day trial Cloudbees Jenkins Enterprise because of the following reason:
+
+In order to discover Bitnami containerized applications, I installed the GitHub Organization plugin which requires a jenkinsfile (declarative pipeline) commited on each Github repository. As I do not have permissions to commit this file to Bitnami repositories, I installed the Cloudbees Jenkins Enterprise version that allows me to specify an unique jenkinsfile to be used among all the discovered repositories that can be hosted on a remote repository.
+
+
+
 
 ### Prerequisites
 
