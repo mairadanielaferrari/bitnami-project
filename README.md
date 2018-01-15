@@ -72,7 +72,28 @@ http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/job/Bitnami/config
 project.git. File Name: jenkinsfile
 
 
-## Execution - Item (3)
+## Pipeline - Item (3)
+
+Each time that a person want to build a master branch should go to the corresponding job, click on build with parameters link on the left, select version and click on build. (Take into account that the version that you want to build should contain a composer-docker.yml file)
+
+Pipeline Explanation:
+
+The declarative pipeline that is used to build each repository is commited on this repository under the name jenkinsfile.
+It is composed by 3 stages
+
+### Checkout 
+   
+   Checkout master branch based on the specific version selected in the parameter Version,
+
+### Validate App
+
+runs docker-composer.yml up -d and verify if each container was loaded propertly by analizing it's .State.ExitCode.
+
+### Run Platform Specific Tests
+
+Simulates Testing Runs for Linux and Windows in parallel. Each specific platform test run on a different jenkins slave provisioned by a configured Amazon Cloud.
+
+## Slaves - Item (4)
 
 
 
