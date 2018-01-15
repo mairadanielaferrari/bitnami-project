@@ -1,4 +1,7 @@
-properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: 'return ["choice1", "choice2", "choice3"];'], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: '''def gettags = ("git ls-remote -t -h ssh://jenkins@<mygitpath>/repo/some.git feature/*").execute()
+
+return gettags.text.readLines()'''], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
+
 pipeline {
     agent {label 'docker-slave'}
     options {        
