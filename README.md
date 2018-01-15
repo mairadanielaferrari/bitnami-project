@@ -111,7 +111,7 @@ I have configured 3 slaves under the cloud.
 
 ### Final Considerations.
 
-Jenkins and Slaves are running on EC2 free tier instances, which are configured to use really low resources (memory and disk). Processing many jobs at a time might take time. and sometimes when retriving docker images, slaves may run out of space causing a build failure.
+Jenkins and Slaves are running on EC2 free tier instances, which are configured to use really low resources (memory and disk). Processing many jobs at a time might take time. and sometimes when docker-compose up downloads docker images, slaves may run out of space causing a build failure.
 
 If you have any doubt or concern, please send me an email to mferrari@gmail.com
 
