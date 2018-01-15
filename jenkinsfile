@@ -1,4 +1,5 @@
-properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: false, script: 'return ["choice1", "choice2", "choice3"];'], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: false, script: '''return ["/bin/bash", ("git ls-tree --name-only HEAD")].execute().text.tokenize().plus(0,"latest");
+'''], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
 
 pipeline {
     agent {label 'docker-slave'}
