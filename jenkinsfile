@@ -4,12 +4,17 @@ pipeline {
         skipStagesAfterUnstable()
     }
     
+    environment { 
+        RELEASE_SCOPE = 'latest'
+    }
+    
     stages {                
         stage("Define Release Version") {
             steps {
                 script {                
                     // Prepare  Available releases and write to a file
-                    sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' > ${WORKSPACE}/mayor-versions-list"
+                    sh "latest > ${WORKSPACE}/mayor-versions-list"
+                    sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' >> ${WORKSPACE}/mayor-versions-list"
 
                     // Load the list into a variable
                     env.MAYOR_RELEASES_LIST = readFile (file: "${WORKSPACE}/mayor-versions-list")
