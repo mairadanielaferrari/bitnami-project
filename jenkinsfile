@@ -45,7 +45,7 @@ pipeline {
                   """     
             }
         }
-        
+        }
         stage('Run Platform Specific Tests') {
             parallel {
                 stage('Windows Testing') {
