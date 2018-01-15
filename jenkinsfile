@@ -1,4 +1,4 @@
-properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: 'return 1..10;'], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: false, script: 'return ["choice1", "choice2", "choice3"];'], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
 
 pipeline {
     agent {label 'docker-slave'}
