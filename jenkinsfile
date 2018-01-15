@@ -31,7 +31,7 @@ pipeline {
                 
                   echo 'Validating App is Up!' 
                
-                  sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
+                  sh """docker-compose -f ps ${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose.yml -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
                      if [ "\$code" != "0" ]; 
                          then exit -1 
                      fi 
