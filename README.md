@@ -71,7 +71,6 @@ http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/job/Bitnami/config
 - Declarative Pipeline Script: Points to a jenkinsfile commited under this repository . https://github.com/mairadanielaferrari/bitnami-
 project.git. File Name: jenkinsfile
 
-
 ## Pipeline - Item (3)
 
 Each time that a person want to build a master branch should go to the corresponding job, click on build with parameters link on the left, select version and click on build. (Take into account that the version that you want to build should contain a composer-docker.yml file)
@@ -79,6 +78,9 @@ Each time that a person want to build a master branch should go to the correspon
 Pipeline Explanation:
 
 The declarative pipeline that is used to build each repository is commited on this repository under the name jenkinsfile.
+
+https://github.com/mairadanielaferrari/bitnami-project/blob/master/jenkinsfiletest
+
 It is composed by 3 stages
 
 ### Checkout 
@@ -91,7 +93,7 @@ runs docker-composer.yml up -d and verify if each container was loaded propertly
 
 ### Run Platform Specific Tests
 
-Simulates Testing Runs for Linux and Windows in parallel. Each specific platform test run on a different jenkins slave provisioned by a configured Amazon Cloud.
+Simulates Testing Runs for Linux and Windows in parallel under "Windows Testing" and "Linux Testing" stages. Each specific platform test run on a different jenkins slave provisioned by a configured Amazon Cloud.
 
 ## Slaves - Item (4)
 
