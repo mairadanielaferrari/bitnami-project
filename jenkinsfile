@@ -1,16 +1,11 @@
 properties([
     parameters([
         [
-            $class: 'ChoiceParameterDefinition', 
-            choiceType: 'PT_SINGLE_SELECT', 
-            description: '', 
-            filterable: false, 
+            $class: 'SystemGroovyChoiceListProvider',             
+            description: '',             
             name: 'Release', 
             randomName: 'choice-parameter-21337077649621572', 
-            script: [
-                $class: 'GroovyScript', 
-                fallbackScript: '', 
-                script: '''
+            script: '''
                 def getReleases = ("git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}'").execute()
                 return getReleases.text.readLines() '''                   
             ]
