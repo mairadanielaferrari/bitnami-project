@@ -27,23 +27,26 @@ pipeline {
         steps{
            script {               
                echo "Validating Release: ${env.RELEASE_SCOPE}"
+               folder = "."
+               
+               if ("${env.RELEASE_SCOPE}" != "latest"){                                          
+                    folder = ${env.RELEASE_SCOPE}
+                }               
                 
-               if ("${env.RELEASE_SCOPE}" != "latest"){      
+               dir(${folder}) {
                   echo "Executing App from ${pdw}"
-                  sh 'cd ${env.RELEASE_SCOPE}'
-                }
-               
-               echo 'Bringing Application Up. This is the first step!'
-               sh 'docker-compose up -d'
+                  echo 'Bringing Application Up. This is the first step!'
+                  sh 'docker-compose up -d'
                 
-               echo 'Validating App is Up!' 
+                  echo 'Validating App is Up!' 
                
-               sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
-                  if [ "\$code" != "0" ]; 
-                      then exit -1 
-                  fi 
-                  done
-                  """     
+                  sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
+                     if [ "\$code" != "0" ]; 
+                         then exit -1 
+                     fi 
+                     done
+                     """     
+             }                  
             }
         }
         }
