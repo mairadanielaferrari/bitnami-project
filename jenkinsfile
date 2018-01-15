@@ -25,14 +25,15 @@ pipeline {
         }
         stage('Validate App') {
         steps{
-           script {
-               echo 'Bringing Application Up. This is the first step!'
-                              
+           script {               
+               echo "Validating Release: ${env.RELEASE_SCOPE}"
+                
                if ("${env.RELEASE_SCOPE}" != "latest"){      
                   echo "Executing App from ${pdw}"
-                  cd ${env.RELEASE_SCOPE}
+                  sh 'cd ${env.RELEASE_SCOPE}'
                 }
                
+               echo 'Bringing Application Up. This is the first step!'
                sh 'docker-compose up -d'
                 
                echo 'Validating App is Up!' 
