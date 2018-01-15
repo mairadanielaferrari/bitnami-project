@@ -27,7 +27,7 @@ pipeline {
            script {               
                echo "Validating Release: ${env.RELEASE_SCOPE}"                                                                                    
                echo 'Bringing Application Up. This is the first step!'
-               sh "${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose up -d"
+               sh "docker-compose -f ${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose.yml up -d"
                 
                   echo 'Validating App is Up!' 
                
@@ -73,7 +73,7 @@ pipeline {
     }
     post { 
         always { 
-                sh 'docker-compose down'                
+                sh 'docker-compose -f ${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose.yml down'                
         }
     }
 }
