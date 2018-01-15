@@ -1,16 +1,4 @@
-properties([
-    parameters([
-        [
-            $class: 'SystemGroovyChoiceListProvider',             
-            description: '',             
-            name: 'Release', 
-            randomName: 'choice-parameter-21337077649621572', 
-            script: '''
-                def getReleases = ("git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}'").execute()
-                return getReleases.text.readLines() '''                               
-        ]
-    ])
-])
+properties([parameters([<object of type com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition>]), pipelineTriggers([])])
 
 pipeline {
     agent {label 'docker-slave'}
