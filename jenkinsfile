@@ -8,9 +8,8 @@ pipeline {
         stage("Define Release Version") {
             steps {
                 script {                
-                    // Prepare  Available releases and write to a file
-                    sh "echo 'latest' > ${WORKSPACE}/mayor-versions-list"
-                    sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' >> ${WORKSPACE}/mayor-versions-list"
+                    // Prepare  Available releases and write to a file                    
+                    sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' > ${WORKSPACE}/mayor-versions-list"
                                         
                     // Load the list into a variable
                     env.MAYOR_RELEASES_LIST = readFile (file: "${WORKSPACE}/mayor-versions-list")
@@ -26,16 +25,10 @@ pipeline {
         stage('Validate App') {
         steps{
            script {               
-               echo "Validating Release: ${env.RELEASE_SCOPE}"
-               def folder = "."
-               echo "Folder 1: ${folder}"               
-               folder = ${env.RELEASE_SCOPE}                                            
-               echo "Folder 4: ${folder}"
-
-               dir('${folder}') {
-                  echo "Executing App from ${pdw}"
-                  echo 'Bringing Application Up. This is the first step!'
-                  sh 'docker-compose up -d'
+               echo "Validating Release: ${env.RELEASE_SCOPE}"                                                                     
+               echo "Executing App from ${pdw}"
+               echo 'Bringing Application Up. This is the first step!'
+               sh '${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose up -d'
                 
                   echo 'Validating App is Up!' 
                
@@ -44,8 +37,7 @@ pipeline {
                          then exit -1 
                      fi 
                      done
-                     """     
-             }                  
+                     """                                   
             }
         }
         }
