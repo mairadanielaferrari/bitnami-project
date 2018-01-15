@@ -11,11 +11,10 @@ pipeline {
                     // Prepare  Available releases and write to a file
                     sh "echo 'latest' > ${WORKSPACE}/mayor-versions-list"
                     sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' >> ${WORKSPACE}/mayor-versions-list"
-                    
-                    node {
+                                        
                     // Load the list into a variable
                     env.MAYOR_RELEASES_LIST = readFile (file: "${WORKSPACE}/mayor-versions-list")
-                    }
+                    
                     // Show the select input
                     env.RELEASE_SCOPE = input message: 'Release is mandatory', ok: 'Build',
                     parameters: [choice(name: 'Mayor Release', choices: env.MAYOR_RELEASES_LIST, description: 'Please select the Mayor Release that you want to verify')]
@@ -29,14 +28,8 @@ pipeline {
            script {               
                echo "Validating Release: ${env.RELEASE_SCOPE}"
                def folder = "."
-               echo "Folder 1: ${folder}"
-               
-               if ("${env.RELEASE_SCOPE}" != "latest"){  
-                    echo "Folder 2: ${folder}"
-                    folder = ${env.RELEASE_SCOPE}
-                    echo "Folder 3: ${folder}"
-               }
-               
+               echo "Folder 1: ${folder}"               
+               folder = ${env.RELEASE_SCOPE}                                            
                echo "Folder 4: ${folder}"
 
                dir('${folder}') {
