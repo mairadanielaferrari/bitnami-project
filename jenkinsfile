@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {                
                     // Prepare  Available releases and write to a file
-                    sh "'latest' > ${WORKSPACE}/mayor-versions-list"
+                    sh "echo 'latest' > ${WORKSPACE}/mayor-versions-list"
                     sh "git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}' >> ${WORKSPACE}/mayor-versions-list"
 
                     // Load the list into a variable
