@@ -42,7 +42,6 @@ pipeline {
         }
         
         stage('Run Platform Specific Tests') {
-            failFast true
             parallel {
                 stage('Windows Testing') {
                     agent {
