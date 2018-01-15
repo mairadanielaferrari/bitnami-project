@@ -15,7 +15,7 @@ pipeline {
                     env.MAYOR_RELEASES_LIST = readFile (file: "${WORKSPACE}/mayor-versions-list")
                     
                     // Show the select input
-                    env.RELEASE_SCOPE = input message: 'Release is mandatory', ok: 'Build',
+                    env.RELEASE_SCOPE = input message: 'Please Select the Mayor Release to verify', ok: 'Build',
                     parameters: [choice(name: 'Mayor Release', choices: env.MAYOR_RELEASES_LIST, description: 'Please select the Mayor Release that you want to verify')]
                 }
                 
