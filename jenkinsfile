@@ -7,8 +7,7 @@ properties([
             randomName: 'choice-parameter-21337077649621572', 
             script: '''
                 def getReleases = ("git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}'").execute()
-                return getReleases.text.readLines() '''                   
-            ]
+                return getReleases.text.readLines() '''                               
         ]
     ])
 ])
