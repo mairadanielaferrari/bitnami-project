@@ -73,7 +73,7 @@ project.git. File Name: jenkinsfile
 
 ## Pipeline - Item (3)
 
-Each time that a person want to build a master branch should go to the corresponding job, click on build with parameters link on the left, select version and click on build. (Take into account that the version that you want to build should contain a composer-docker.yml file)
+Each time that a person want to verify a master branch, should go to the corresponding job, click on the "build with parameters" link on the left, select the version that wants to verify  and click on build. (Take into account that the version that you want to build should contain a composer-docker.yml file)
 
 Pipeline Explanation:
 
