@@ -31,11 +31,12 @@ pipeline {
                echo 'Bringing Application Up. This is the first step!'
                
                if ("${params.Version}" != "latest")            
-                  'cd ${params.Version}'
+                  sh 'cd ${params.Version}'
                
                sh 'docker-compose up -d'
                 
                echo 'Validating App is Up!' 
+               
                sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
                   if [ "\$code" != "0" ]; 
                       then exit -1 
