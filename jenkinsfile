@@ -16,7 +16,7 @@ pipeline {
 
                     // Show the select input
                     env.RELEASE_SCOPE = input message: 'Release is mandatory', ok: 'Release',
-                    parameters: [choice(name: 'RELEASE_SCOPE', choices: env.MAYOR_RELEASES_LIST, description: 'Please select the Mayor Release that you want to verify')]
+                    parameters: [choice(name: 'Mayor Release', choices: env.MAYOR_RELEASES_LIST, description: 'Please select the Mayor Release that you want to verify')]
                 }
                 
                 echo "Mayor release selected: ${env.RELEASE_SCOPE}"
@@ -27,8 +27,8 @@ pipeline {
            script {
                echo 'Bringing Application Up. This is the first step!'
                
-               if ("${params.Version}" != "latest")            
-                  sh 'cd ${params.Version}'
+               if ("${env.RELEASE_SCOPE}" != "latest")            
+                  sh 'cd ${env.RELEASE_SCOPE}'
                
                sh 'docker-compose up -d'
                 
