@@ -28,11 +28,14 @@ pipeline {
            script {               
                echo "Validating Release: ${env.RELEASE_SCOPE}"
                def folder = "."
+               echo "Folder 1: ${folder}"
                
-               if ("${env.RELEASE_SCOPE}" != "latest"){                                          
+               if ("${env.RELEASE_SCOPE}" != "latest"){  
+                    echo "Folder 2: ${folder}"
                     folder = ${env.RELEASE_SCOPE}
-                }               
-               echo "Folder: ${folder}"
+               }
+               
+               echo "Folder 3: ${folder}"
 
                dir('${folder}') {
                   echo "Executing App from ${pdw}"
