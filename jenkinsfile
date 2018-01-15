@@ -1,43 +1,47 @@
-properties([parameters([[$class: 'GitParameterDefinition', branch: '', branchFilter: 'master', defaultValue: 'latest', description: 'Release to build', name: 'Version', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*-r*', type: 'PT_TAG', useRepository: 'https://github.com/Bitnami/bitnami-docker-*']]), pipelineTriggers([])])
-def GIT_URL = 'UNKNOWN'
-def REFS = 'UNKNOWN'
+properties([
+    parameters([
+        [
+            $class: 'ChoiceParameter', 
+            choiceType: 'PT_SINGLE_SELECT', 
+            description: '', 
+            filterable: false, 
+            name: 'Release', 
+            randomName: 'choice-parameter-21337077649621572', 
+            script: [
+                $class: 'GroovyScript', 
+                fallbackScript: '', 
+                script: '''
+                def getReleases = ("git ls-tree --name-only HEAD | grep -Eo '[0-9]{1,4}'").execute()
+                return getReleases.text.readLines() '''                   
+            ]
+        ]
+    ])
+])
 
 pipeline {
     agent {label 'docker-slave'}
-    options {
-        skipDefaultCheckout()
+    options {        
         skipStagesAfterUnstable()
     }
     
-    stages {
-        stage('Checkout') {
-         steps {
-                script {            
-                GIT_URL = scm.getUserRemoteConfigs()[0].getUrl()
-                sh "echo ${GIT_URL}"
-                if ("${params.Version}" == "latest")
-                  REFS = 'refs/heads/master'
-                else
-                  REFS = "refs/tags/${params.Version}"               
-                }
-                
-                echo  "Retriving Version: ${REFS} from ${GIT_URL}"
-                checkout([$class: 'GitSCM', branches: [[name: "${REFS}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])                
-        }
-        }
-        
+    stages {                
         stage('Validate App') {
         steps{
-           echo 'Bringing Application Up. This is the first step!'
-           sh 'docker-compose up -d'
+           script {
+               echo 'Bringing Application Up. This is the first step!'
+               
+               if ("${params.Version}" != "latest")            
+                  'cd ${params.Version}'
+               
+               sh 'docker-compose up -d'
                 
-           echo 'Validating App is Up!' 
-                sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
-                    if [ "\$code" != "0" ]; 
-                        then exit -1 
-                    fi 
-                    done
-                    """     
+               echo 'Validating App is Up!' 
+               sh """docker-compose ps -q | xargs docker inspect -f \'{{ .State.ExitCode }}\' | while read code; do
+                  if [ "\$code" != "0" ]; 
+                      then exit -1 
+                  fi 
+                  done
+                  """     
             }
         }
         
@@ -47,8 +51,7 @@ pipeline {
                     agent {
                         label "windows-testing"
                     }
-                    steps {
-                       echo  "Retriving Version: ${REFS} from ${GIT_URL}"           
+                    steps {                            
                        echo "Executing script to start Testing in Windows"
                     }
                     post {
@@ -61,8 +64,7 @@ pipeline {
                     agent {
                         label "linux-testing"
                     }
-                    steps {
-                       echo  "Retriving Version: ${REFS} from ${GIT_URL}"
+                    steps {                       
                        echo "Executing script to start Testing in Linux"
                      }
                     post {
