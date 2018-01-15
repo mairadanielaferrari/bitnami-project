@@ -33,9 +33,10 @@ pipeline {
                if ("${env.RELEASE_SCOPE}" != "latest"){  
                     echo "Folder 2: ${folder}"
                     folder = ${env.RELEASE_SCOPE}
+                    echo "Folder 3: ${folder}"
                }
                
-               echo "Folder 3: ${folder}"
+               echo "Folder 4: ${folder}"
 
                dir('${folder}') {
                   echo "Executing App from ${pdw}"
