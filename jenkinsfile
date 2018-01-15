@@ -1,6 +1,4 @@
-properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: '''return ("git ls-tree --name-only HEAD").execute().text.readLines().plus(0,"latest")
-'''], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
-
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: '("git ls-tree --name-only HEAD").execute().text.readLines().plus("latest")'], usePredefinedVariables: false], description: '', editable: false, name: '']]), pipelineTriggers([])])
 pipeline {
     agent {label 'docker-slave'}
     options {        
