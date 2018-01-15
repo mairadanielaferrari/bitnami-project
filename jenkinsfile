@@ -1,5 +1,4 @@
-properties([parameters([<object of type com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition>]), pipelineTriggers([])])
-
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: 'return ["choice1", "choice2", "choice3"];'], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
 pipeline {
     agent {label 'docker-slave'}
     options {        
