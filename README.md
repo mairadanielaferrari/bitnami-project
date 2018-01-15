@@ -97,7 +97,15 @@ Simulates Testing Runs for Linux and Windows in parallel under "Windows Testing"
 
 ## Slaves - Item (4)
 
+In order to provison slaves for testing, under the main jenkins configuration page Cloud Section, I have configured an EC2 Cloud (bitnami-test-cloud) that will be used by jenkins to provision corresponding slaves when running the pipeline.
 
+http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/configure
+
+I have configured 3 slaves under the cloud.
+
+- docker-slave where runs the ValidateApp stage
+- windows-testing where will run windows tests.
+- linux-testing where will run linux tests.
 
 ## Authors
 Maira Daniela Ferrari
