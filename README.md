@@ -33,13 +33,13 @@ Login Details:
 
 Installed Version: CloudBees Jenkins Enterprise 2.89.1.7-rolling. I have installed a 14-day trial Cloudbees Jenkins Enterprise because of the following reason:
 
-In order to discover Bitnami containerized applications, I installed the GitHub Organization Folder plugin which requires a jenkinsfile (declarative pipeline) commited on each Github repository. As I do not have permissions to commit this file to Bitnami repositories, I installed the Cloudbees Jenkins Enterprise version that allows me to specify an unique jenkinsfile, hosted on a remote repository, that will used among all the discovered repositories.
+In order to discover Bitnami containerized applications, I installed the GitHub Organization Folder plugin which requires a jenkinsfile (declarative pipeline) commited on each Github repository. As I do not have permissions to commit this file to Bitnami repositories, I installed the Cloudbees Jenkins Enterprise version that allows me to specify an unique jenkinsfile, hosted on a remote repository, that will be used among each and every discovered repository. 
 
 During installation, I installed default recommended plugins plus some specific ones needed to resolve the project assignment. Installed plugins can be found under the following URL.
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/pluginManager/installed
 
-Under Linux, I installed the following tools:
+Under the EC2 Linux, I installed the following tools:
 
 - Docker
 - Git
@@ -48,9 +48,11 @@ Under Linux, I installed the following tools:
 
 ## Configuration - Item (2)
 
-In order to obtain periodically the list of containerized applications and automatically create a job per each Repository master branch, I installed the GitHub Organization Plugin, which allows Jenkins to discover repositories / branches based on regular expressions.
+In order to obtain periodically the list of containerized applications and automatically create a job per each Repository master branch, I installed the GitHub Organization Plugin, which allows Jenkins to discover repositories / branches based on regular expressions. This plugin will monitor the Bitnami GitHub organization every day.
 
-In order to create a parameter selector with the different version options (releases) that the application supports, I have installed the Git Parameter Plugin which allows us to assign git tag or revision number as parameter in Parametrized builds.
+In order to create a parameter selector containing every different version (releases) that the application supports, I have installed the Git Parameter Plugin which allows us to assign a git tag or revision number as parameter in Parametrized builds.
+
+As a suggestion, if mayor releases are created with a different naming convention, this parameter could be configured based on a regular expresion that matches only these mayor releases. For this demo, I have configured it to retrieve tags based on the following regular expression *-r*)
 
 Jobs can be found under:
 
@@ -73,13 +75,13 @@ project.git. File Name: jenkinsfile
 
 ## Pipeline - Item (3)
 
-Each time that a person want to verify a master branch, should go to the corresponding job, click on the "build with parameters" link on the left, select the version that wants to verify  and click on build. (Take into account that the version that you want to build should contain a composer-docker.yml file)
+Each time that a person want to verify a master branch, should go to the corresponding job, click on the "build with parameters" link on the left, select the version that wants to verify  and click on build. (Take into account that the version that you want to build should contain a docker-composer.yml file)
 
 Pipeline Explanation:
 
 The declarative pipeline that is used to build each repository is commited on this repository under the name jenkinsfile.
 
-https://github.com/mairadanielaferrari/bitnami-project/blob/master/jenkinsfiletest
+https://github.com/mairadanielaferrari/bitnami-project/blob/master/jenkinsfile
 
 It is composed by 3 stages
 
@@ -93,11 +95,11 @@ runs docker-composer.yml up -d and verify if each container was loaded propertly
 
 ### Run Platform Specific Tests
 
-Simulates Testing Runs for Linux and Windows in parallel under "Windows Testing" and "Linux Testing" stages. Each specific platform test run on a different jenkins slave provisioned by a configured Amazon Cloud.
+Simulates Testing Runs for Linux and Windows in parallel under "Windows Testing" and "Linux Testing" stages. Each specific platform test run on a different jenkins slave provisioned by a configured Amazon Cloud. (for testing purposes, both windows and linux slave provision a linux ec2.)
 
 ## Slaves - Item (4)
 
-In order to provison slaves for testing, under the main jenkins configuration page Cloud Section, I have configured an EC2 Cloud (bitnami-test-cloud) that will be used by jenkins to provision corresponding slaves when running the pipeline.
+In order to provison slaves for testing, under the main jenkins configuration page Cloud Section, I have configured an EC2 Cloud (bitnami-test-cloud) that will be used by jenkins to provision corresponding slaves while running the pipeline.
 
 http://ec2-18-216-206-98.us-east-2.compute.amazonaws.com:8080/configure
 
@@ -106,6 +108,10 @@ I have configured 3 slaves under the cloud.
 - docker-slave where runs the ValidateApp stage
 - windows-testing where will run windows tests.
 - linux-testing where will run linux tests.
+
+### Final Considerations.
+
+Jenkins and Slaves are running on EC2 free tier instances, which are configured to use really low resources (memory and disk). Processing many jobs at a time might take time.
 
 ## Authors
 Maira Daniela Ferrari
