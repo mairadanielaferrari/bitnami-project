@@ -27,7 +27,7 @@ pipeline {
            script {               
                echo "Validating Release: ${env.RELEASE_SCOPE}"                                                                                    
                echo 'Bringing Application Up. This is the first step!'
-               sh '${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose up -d'
+               sh "${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose up -d"
                 
                   echo 'Validating App is Up!' 
                
