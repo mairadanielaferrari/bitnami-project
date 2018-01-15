@@ -113,5 +113,7 @@ I have configured 3 slaves under the cloud.
 
 Jenkins and Slaves are running on EC2 free tier instances, which are configured to use really low resources (memory and disk). Processing many jobs at a time might take time.
 
+If you have any doubt or concern, please send me an email to mferrari@gmail.com
+
 ## Authors
 Maira Daniela Ferrari
