@@ -33,7 +33,7 @@ pipeline {
                     folder = ${env.RELEASE_SCOPE}
                 }               
                 
-               dir(${folder}) {
+               dir("${folder}") {
                   echo "Executing App from ${pdw}"
                   echo 'Bringing Application Up. This is the first step!'
                   sh 'docker-compose up -d'
