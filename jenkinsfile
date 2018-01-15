@@ -1,4 +1,4 @@
-properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: '''return ("git ls-tree --name-only HEAD | grep -Eo \'[0-9]{1,4}\'").execute().text.readLines()
+properties([parameters([[$class: 'ExtensibleChoiceParameterDefinition', choiceListProvider: [$class: 'SystemGroovyChoiceListProvider', groovyScript: [classpath: [], sandbox: true, script: '''return (git ls-tree --name-only HEAD | grep -Eo \'[0-9]{1,4}\').execute().text.readLines()
 '''], usePredefinedVariables: false], description: '', editable: false, name: 'Release']]), pipelineTriggers([])])
 
 pipeline {
