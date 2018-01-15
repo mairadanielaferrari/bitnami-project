@@ -73,7 +73,7 @@ pipeline {
     }
     post { 
         always { 
-                sh 'docker-compose -f ${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose.yml down'                
+                sh "docker-compose -f ${WORKSPACE}/${env.RELEASE_SCOPE}/docker-compose.yml down"                
         }
     }
 }
